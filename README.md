@@ -98,3 +98,49 @@ await query('banana');
 [0.8415324469533297] blue
 */
 ```
+
+## Creating an Index
+
+You can create or modify an index with the `vectra CLI` located in the `bin` folder.
+
+run `node ./bin/vectra.js` for all the available commands and options:
+
+```bash
+$ node ./bin/vectra.js
+vectra <command>
+
+Commands:
+  vectra create <index>         create a new local index
+  vectra delete <index>         delete an existing local index
+  vectra add <index>            adds one or more web pages to an index
+  vectra remove <index>         removes one or more documents from an index
+  vectra stats <index>          prints the stats for a local index
+  vectra query <index> <query>  queries a local index
+
+Options:
+  --version  Show version number                                       [boolean]
+  --help     Show help                                                 [boolean]
+```
+
+### Example
+
+To create a new index and add all web pages listed in a file `clouds.links` follow these steps:
+
+- update one of the keys files in the `./indexes` folder. When working with Azur OpenAI, update `vectra.keys.azure-example`. For working OpenAI models, update `vectra.keys.openai-example`.
+
+- run `node ./bin/vectra.js create <path to your index>`
+- run `node ./bin/vectra.js add <path to your index> -l pages.links -k <path to your keys file>`
+
+```bash
+$ cat clouds.links
+https://azure.com
+https://openai.com
+
+$ node ./bin/vectra.js create indexes/clouds
+creating index at indexes/clouds
+
+$ node ./bin/vectra.js add indexes/clouds -l clouds.links -k ./indexes/vectra.keys.azure-example
+Adding Web Pages to Index
+added https://azure.com
+added https://openai.com
+```
